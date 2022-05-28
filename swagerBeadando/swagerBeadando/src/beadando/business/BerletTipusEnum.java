@@ -1,5 +1,6 @@
 package beadando.business;
-
+//tesztelés
+//miért nem jo
 import java.time.LocalDate;
 
 public enum BerletTipusEnum {
@@ -14,5 +15,8 @@ public enum BerletTipusEnum {
     public LocalDate getErvenyessegDatum(){
         LocalDate date = LocalDate.now().plusDays(ervenyessegHossza);
         return date;
+    }
+    public void teszt(){
+        
     }
 }
