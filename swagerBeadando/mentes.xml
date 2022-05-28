@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><tag>
+
+<tag class="Vendeg"><berletTipus>LEJART</berletTipus><ervenyessegDatum>2022-05-20</ervenyessegDatum><Id>123</Id><nev>Valami Név</nev><ervenyesseg>false</ervenyesseg></tag><tag class="Edzo"><kliensek>[beadando.business.Vendeg@282ba1e]</kliensek><Id>456</Id><nev>Másik Név</nev><ervenyesseg>true</ervenyesseg></tag></tag>
