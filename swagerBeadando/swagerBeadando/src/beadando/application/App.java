@@ -40,13 +40,13 @@ class Ablak extends JFrame implements ActionListener {
     
     //Vendegekre vonatkozo menu komponensek
     JMenu vendeg = new JMenu("Vendegek");
-    JMenu adatok = new JMenu("Vendegek adatainak kezelése");
-    JMenuItem vfelvetel = new JMenuItem ("Új regisztráció");
+    JMenuItem vfelvetel = new JMenuItem ("Felvétel");
     JMenuItem vmodositas = new JMenuItem ("Módosítás");
     JMenuItem vtorles = new JMenuItem ("törlés");
     JMenuItem vbefizetes = new JMenuItem("Befizetes");
     JMenuItem vberletVasarlas = new JMenuItem("Bérlet Vásárlás");
     JMenuItem vkeres = new JMenuItem("Vendég keresése");
+    JMenuItem vszemelyiedzoValasztas = new JMenuItem("Személyi edző választás");
     
     //Edzokre vonatkozo menu komponensek
     JMenu edzo = new JMenu("Edzok");
@@ -73,13 +73,13 @@ class Ablak extends JFrame implements ActionListener {
         
         //Vendegekre vonatkozo komponensek hozzaadasa + actionlisteners
         mb.add(vendeg);
-        vendeg.add(adatok);
-        adatok.add(vfelvetel);
-        adatok.add(vmodositas);
-        adatok.add(vtorles);
+        vendeg.add(vfelvetel);
+        vendeg.add(vmodositas);
+        vendeg.add(vtorles);
         vendeg.add(vbefizetes);
         vendeg.add(vberletVasarlas);
         vendeg.add(vkeres);
+        vendeg.add(vszemelyiedzoValasztas);
         
         vfelvetel.addActionListener(this);
         vmodositas.addActionListener(this);
@@ -87,6 +87,7 @@ class Ablak extends JFrame implements ActionListener {
         vbefizetes.addActionListener(this);
         vberletVasarlas.addActionListener(this);
         vkeres.addActionListener(this);
+        vszemelyiedzoValasztas.addActionListener(this);
 
         //Edzokre vonatkozo komponensek hozzaadasa + actionlisteners
         mb.add(edzo);
@@ -136,11 +137,26 @@ class Ablak extends JFrame implements ActionListener {
         }
         //lokalisan
         else if(e.getSource()== vtorles){
-            
+            try{
+                Integer  id = Integer.parseInt(JOptionPane.showInputDialog("A vendég ID-ja: "));
+                app.vendegList.remove(id-1);
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Hibás ID!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
         }
         //lokalisan (Bérlet vásárláskor az itt felvitt összeget lehet "elkölteni")
         else if(e.getSource()== vbefizetes){
-            
+            try{
+                Integer id = Integer.parseInt(JOptionPane.showInputDialog("A vendég ID-ja: "));
+                Integer osszeg = Integer.parseInt(JOptionPane.showInputDialog("A befizetés összege: "));
+                app.vendegList.get(id-1).egyenlegNoveles(osszeg);
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Hiba az befizetés közben!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
         }
         //lokalisan
         else if(e.getSource()== vberletVasarlas){
@@ -164,11 +180,11 @@ class Ablak extends JFrame implements ActionListener {
         }
         //JP-t hiv (Az összes tag megjelentése egy legördülő lista formájában)
         else if(e.getSource()== tagokLista){
-            
+            jp = new TagokLista_JP(app);
+            fr.add(jp);
         }
         //JP-t hiv (Egyetlen tag megjelenitése keresés név vagy ID alapján)
         else if(e.getSource()== vkeres){
-            SwingUtilities.updateComponentTreeUI(fr);
             jp = new Vkeres_JP(app);
             fr.add(jp);
         }
@@ -178,6 +194,21 @@ class Ablak extends JFrame implements ActionListener {
         }
         //lokalisan mentes XML-be
         else if(e.getSource()== mentes){
+            try{
+                for(int i=0; i<app.vendegList.size(); i++){
+                app.vendegList.get(i).mentes();
+                }
+                for(int i=0; i<app.edzoList.size(); i++){
+                    app.edzoList.get(i).mentes();
+                }
+                JOptionPane.showMessageDialog(null, "Sikeres mentés!");
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Hiba a mentés közben!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
+        }
+        else if(e.getSource()== vszemelyiedzoValasztas){
             
         }
         SwingUtilities.updateComponentTreeUI(jp);

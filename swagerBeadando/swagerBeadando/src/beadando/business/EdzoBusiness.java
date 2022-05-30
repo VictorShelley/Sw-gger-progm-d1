@@ -6,7 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EdzoBusiness extends TagBusiness{
-
+    
+    private final String megnevezese = "Edző";
+    
     @GetterFunctionName(name="getKliensek")
     private ArrayList<VendegBusiness> kliensek;
     
@@ -30,6 +32,10 @@ public class EdzoBusiness extends TagBusiness{
 
     public void addKliens(VendegBusiness vendeg){
         kliensek.add(vendeg);
+    }
+
+    public String getMegnevezese() {
+        return megnevezese;
     }
     
     public void mentes(){

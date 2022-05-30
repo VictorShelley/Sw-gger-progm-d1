@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 public class VendegBusiness extends TagBusiness{
     
+    private final String megnevezese = "Vendég";
+    
     @GetterFunctionName(name="getBerletTipus")
     private BerletTipusEnum berletTipus;// = BerletTipusEnum.LEJART;
     
@@ -45,6 +47,14 @@ public class VendegBusiness extends TagBusiness{
 
     public Integer getEgyenleg() {
         return egyenleg;
+    }
+
+    public void egyenlegNoveles(Integer osszeg) {
+        this.egyenleg += osszeg;
+    }
+
+    public String getMegnevezese() {
+        return megnevezese;
     }
 
     public void mentes(){
