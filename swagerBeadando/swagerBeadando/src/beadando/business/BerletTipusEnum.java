@@ -17,7 +17,4 @@ public enum BerletTipusEnum {
         LocalDate date = LocalDate.now().plusDays(ervenyessegHossza);
         return date;
     }
-    public void teszt(){
-        
-    }
 }
