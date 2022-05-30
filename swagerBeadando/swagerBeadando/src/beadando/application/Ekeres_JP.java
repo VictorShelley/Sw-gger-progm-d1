@@ -8,12 +8,12 @@ package beadando.application;
  *
  * @author zelllow777
  */
-public class TagKeres_JP extends javax.swing.JPanel {
+public class Ekeres_JP extends javax.swing.JPanel {
 
     /**
-     * Creates new form TagKeres_JP
+     * Creates new form Ekeres_JP
      */
-    public TagKeres_JP() {
+    public Ekeres_JP() {
         initComponents();
     }
 

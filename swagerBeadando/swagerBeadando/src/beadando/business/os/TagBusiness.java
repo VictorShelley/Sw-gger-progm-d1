@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import beadando.business.GetterFunctionName;
 
 public abstract class TagBusiness {
-    //public static final String fajlnev = "mentes.xml";
+    
+    private Integer nextId=1;
     
     @GetterFunctionName(name="getId")
     private Integer Id;
@@ -16,7 +17,7 @@ public abstract class TagBusiness {
     private Boolean ervenyesseg;
     
     @GetterFunctionName(name="getTelefonszam")
-    private Integer telefonszam;
+    private String telefonszam;
     
     @GetterFunctionName(name="getCim")
     private String cim;
@@ -24,8 +25,9 @@ public abstract class TagBusiness {
     @GetterFunctionName(name="getCsatlakozasDatuma")
     private LocalDate csatlakozasDatuma;
     
-    public TagBusiness(Integer Id, String nev, Integer telefonszam, String cim, LocalDate csatlakozasDatuma){
-        this.Id = Id;
+    public TagBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma){
+        this.Id = nextId;
+        nextId++;
         this.nev = nev;
         this.telefonszam = telefonszam;
         this.cim = cim;
@@ -45,7 +47,7 @@ public abstract class TagBusiness {
         return ervenyesseg;
     }
 
-    public Integer getTelefonszam() {
+    public String getTelefonszam() {
         return telefonszam;
     }
 

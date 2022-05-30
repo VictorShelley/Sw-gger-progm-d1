@@ -13,8 +13,8 @@ public class EdzoBusiness extends TagBusiness{
     @GetterFunctionName(name="GetlKliensekSzama")
     private Integer kliensekSzama;
 
-    public EdzoBusiness(Integer Id, String nev, Integer telefonszam, String cim, LocalDate csatlakozasDatuma) {
-        super(Id, nev, telefonszam, cim, csatlakozasDatuma);
+    public EdzoBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma) {
+        super(nev, telefonszam, cim, csatlakozasDatuma);
         this.kliensek = new ArrayList<>();
         this.kliensekSzama = 0;
         this.setErvenyesseg(true);

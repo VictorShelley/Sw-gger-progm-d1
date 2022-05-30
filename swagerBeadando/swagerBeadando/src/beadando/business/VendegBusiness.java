@@ -18,8 +18,8 @@ public class VendegBusiness extends TagBusiness{
     @GetterFunctionName(name="getEgyenleg")
     private Integer egyenleg;
     
-    public VendegBusiness(Integer Id, String nev, Integer telefonszam, String cim, LocalDate csatlakozasDatuma) {
-        super(Id, nev, telefonszam, cim, csatlakozasDatuma);
+    public VendegBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma) {
+        super(nev, telefonszam, cim, csatlakozasDatuma);
         this.berletTipus = BerletTipusEnum.LEJART;
         this.ervenyessegDatum = LocalDate.now().minusDays(1);
         this.kedvezmenyTipus = KedvezmenyTipusEnum.TELJES;
