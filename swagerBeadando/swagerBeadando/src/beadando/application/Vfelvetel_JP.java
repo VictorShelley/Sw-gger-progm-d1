@@ -26,7 +26,8 @@ public class Vfelvetel_JP extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents(App app) {
-
+        
+        jLabel0 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -87,7 +88,8 @@ public class Vfelvetel_JP extends javax.swing.JPanel {
     }                                        
 
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify  
+    private javax.swing.JLabel jLabel0;
     private javax.swing.JTextField cim_txt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
