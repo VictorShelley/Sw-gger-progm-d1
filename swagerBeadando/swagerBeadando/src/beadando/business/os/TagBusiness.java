@@ -1,9 +1,11 @@
 package beadando.business.os;
 
+import java.time.LocalDate;
 import beadando.business.GetterFunctionName;
 
 public abstract class TagBusiness {
-    //public static final String fajlnev = "mentes.xml";
+    
+    private Integer nextId=1;
     
     @GetterFunctionName(name="getId")
     private Integer Id;
@@ -12,12 +14,25 @@ public abstract class TagBusiness {
     private String nev;
     
     @GetterFunctionName(name="getErvenyesseg")
-    private Boolean ervenyesseg = false;
+    private Boolean ervenyesseg;
     
+    @GetterFunctionName(name="getTelefonszam")
+    private String telefonszam;
     
-    public TagBusiness(Integer Id, String nev){
-        this.Id = Id;
+    @GetterFunctionName(name="getCim")
+    private String cim;
+    
+    @GetterFunctionName(name="getCsatlakozasDatuma")
+    private LocalDate csatlakozasDatuma;
+    
+    public TagBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma){
+        this.Id = nextId;
+        nextId++;
         this.nev = nev;
+        this.telefonszam = telefonszam;
+        this.cim = cim;
+        this.csatlakozasDatuma = csatlakozasDatuma;
+        this.ervenyesseg = false;
     }
 
     public Integer getId() {
@@ -30,6 +45,18 @@ public abstract class TagBusiness {
 
     public Boolean getErvenyesseg() {
         return ervenyesseg;
+    }
+
+    public String getTelefonszam() {
+        return telefonszam;
+    }
+
+    public String getCim() {
+        return cim;
+    }
+
+    public LocalDate getCsatlakozasDatuma() {
+        return csatlakozasDatuma;
     }
 
     public void setErvenyesseg(Boolean ervenyesseg) {

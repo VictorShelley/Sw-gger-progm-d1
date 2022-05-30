@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 public class VendegBusiness extends TagBusiness{
     
+    private final String megnevezese = "Vendég";
+    
     @GetterFunctionName(name="getBerletTipus")
     private BerletTipusEnum berletTipus;// = BerletTipusEnum.LEJART;
     
@@ -15,11 +17,11 @@ public class VendegBusiness extends TagBusiness{
     @GetterFunctionName(name="getErvenyessegDatum")
     private LocalDate ervenyessegDatum;// = LocalDate.now().minusDays(1);
     
-    @GetterFunctionName(name="")
+    @GetterFunctionName(name="getEgyenleg")
     private Integer egyenleg;
     
-    public VendegBusiness(Integer Id, String nev) {
-        super(Id, nev);
+    public VendegBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma) {
+        super(nev, telefonszam, cim, csatlakozasDatuma);
         this.berletTipus = BerletTipusEnum.LEJART;
         this.ervenyessegDatum = LocalDate.now().minusDays(1);
         this.kedvezmenyTipus = KedvezmenyTipusEnum.TELJES;
@@ -42,9 +44,19 @@ public class VendegBusiness extends TagBusiness{
     public KedvezmenyTipusEnum getKedvezmenyTipus() {
         return kedvezmenyTipus;
     }
-    
-    
-    
+
+    public Integer getEgyenleg() {
+        return egyenleg;
+    }
+
+    public void egyenlegNoveles(Integer osszeg) {
+        this.egyenleg += osszeg;
+    }
+
+    public String getMegnevezese() {
+        return megnevezese;
+    }
+
     public void mentes(){
         Fio<VendegBusiness> f = new Fio<VendegBusiness>();
         f.mentes(this);
