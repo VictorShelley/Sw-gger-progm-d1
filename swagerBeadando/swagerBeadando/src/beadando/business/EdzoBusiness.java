@@ -12,7 +12,7 @@ public class EdzoBusiness extends TagBusiness{
     @GetterFunctionName(name="getKliensek")
     private ArrayList<VendegBusiness> kliensek;
     
-    @GetterFunctionName(name="GetlKliensekSzama")
+    @GetterFunctionName(name="getKliensekSzama")
     private Integer kliensekSzama;
 
     public EdzoBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma) {

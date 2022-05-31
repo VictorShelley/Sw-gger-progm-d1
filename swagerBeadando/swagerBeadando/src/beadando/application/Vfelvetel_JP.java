@@ -76,10 +76,19 @@ public class Vfelvetel_JP extends javax.swing.JPanel {
             String nev = nev_txt.getText();
             String telefonszam = telefonszam_txt.getText();
             String cim = cim_txt.getText();
-            LocalDate now =  LocalDate.now();
-            VendegBusiness vendeg = new VendegBusiness(nev, telefonszam, cim, now);
-            app.vendegList.add(vendeg);
-            JOptionPane.showMessageDialog(null, "Sikeres adat felvitel");
+            if (nev.length() > 0 && telefonszam.length() > 0 && cim.length() > 0){
+                LocalDate now =  LocalDate.now();
+                VendegBusiness vendeg = new VendegBusiness(nev, telefonszam, cim, now);
+                app.vendegList.add(vendeg);
+                JOptionPane.showMessageDialog(null, "Sikeres adat felvitel");
+                
+                nev_txt.setText("");
+                telefonszam_txt.setText("");
+                cim_txt.setText("");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Üresen hagyott mező", "Message", JOptionPane.ERROR_MESSAGE);     
+            }
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);

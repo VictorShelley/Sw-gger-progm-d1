@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 
 public class Fio <T>{
     
-    public static final String xmlFilePath = "C:\\Users\\balaz\\Desktop\\Mentes.xml";
+    public static final String xmlFilePath = "mentes.xml";
     
     public void mentes(T entity){
         Class clazz = entity.getClass();
@@ -42,6 +42,7 @@ public class Fio <T>{
                     tag.appendChild(elem);
                 }
             }
+            
             Field[] tuls2 = superclazz.getDeclaredFields();
             for(Field tul2 : tuls2){
                 if(tul2.getAnnotation(GetterFunctionName.class) != null){
@@ -56,6 +57,7 @@ public class Fio <T>{
                     tag.appendChild(elem);
                 }
             }
+           
             tag.setAttribute("class", clazz.getSimpleName());
             xml.getFirstChild().appendChild(tag);
             TransformerFactory tf = TransformerFactory.newInstance();

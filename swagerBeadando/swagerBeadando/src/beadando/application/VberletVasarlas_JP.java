@@ -86,11 +86,6 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
         jLabel5.setText("ID:");
 
         jTextField1.setPreferredSize(new Dimension(60, 20));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -209,10 +204,7 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
             System.out.println(String.format("%s nem rendelkezik elég egyenleggel a \n szia", vendeg.getNev()));
             JOptionPane.showMessageDialog(null, String.format("%s nem rendelkezik elég egyenleggel a vásárláshoz!\n%s egyenlege: %d Ft\nA %s %s ára: %d Ft", vendeg.getNev(),vendeg.getNev(),vendeg.getEgyenleg(),arTipus,berletTipus, osszeg));
         }
-    }
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    }                                        
 
 
     // Variables declaration - do not modify                     

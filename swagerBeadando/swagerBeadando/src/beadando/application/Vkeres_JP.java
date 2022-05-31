@@ -50,7 +50,11 @@ public class Vkeres_JP extends javax.swing.JPanel {
         csatlakozasDatum = new javax.swing.JLabel();
         berletErvenyesseg = new javax.swing.JLabel();
         egyenleg = new javax.swing.JLabel();
-
+        //törlés, befizetés
+        befizetes_btn = new javax.swing.JButton();
+        torles_btn = new javax.swing.JButton();
+        
+        
         jLabel1.setText("jLabel1");
 
         setPreferredSize(new java.awt.Dimension(500, 500));
@@ -74,7 +78,25 @@ public class Vkeres_JP extends javax.swing.JPanel {
             }
         });
         add(kereses_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
-
+        
+        befizetes_btn.setText("Befizetés");
+        befizetes_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                befizetes_btnActionPerformed(evt, app);
+            }
+        });
+        add(befizetes_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        befizetes_btn.setVisible(false);
+        
+        torles_btn.setText("Törlés");
+        torles_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                torles_btnActionPerformed(evt, app);
+            }
+        });
+        add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        torles_btn.setVisible(false);
+        
         jLabel3.setText("Név:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
         add(id_lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
@@ -166,7 +188,11 @@ public class Vkeres_JP extends javax.swing.JPanel {
                     id_str.setText(vendeg.getId().toString());
                     kedvezmenyTipus.setText(vendeg.getKedvezmenyTipus().toString());
                     telefonszam.setText(vendeg.getTelefonszam());
+
+                    befizetes_btn.setVisible(true);
+                    torles_btn.setVisible(true);
                     
+                    id_txt.setEditable(false);
                     f = true;
                 }
             }
@@ -177,6 +203,31 @@ public class Vkeres_JP extends javax.swing.JPanel {
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);
             out.println(ex.toString());
+        }
+    }
+    private void befizetes_btnActionPerformed(java.awt.event.ActionEvent evt, App app) { 
+        try{
+            Integer id = Integer.parseInt(id_txt.getText());
+            Integer osszeg = Integer.parseInt(JOptionPane.showInputDialog("A befizetés összege: "));
+            app.vendegList.get(id-1).egyenlegNoveles(osszeg);
+            egyenleg.setText(app.vendegList.get(id-1).getEgyenleg().toString());
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Hiba az befizetés közben!", "Message", JOptionPane.ERROR_MESSAGE);
+            out.println(ex.toString());
+       }
+    }
+    private void torles_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {  
+        try{
+            Integer id = Integer.parseInt(id_txt.getText());
+            int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
+            if(result == JOptionPane.YES_OPTION){
+                app.vendegList.remove(id);
+                }
+            }
+        catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "probléma a törlés közben.!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
         }
     }                                           
 
@@ -208,6 +259,8 @@ public class Vkeres_JP extends javax.swing.JPanel {
     private javax.swing.JLabel nev;
     private javax.swing.JLabel cim;
     private javax.swing.JButton kereses_btn;
+    private javax.swing.JButton befizetes_btn;
+    private javax.swing.JButton torles_btn;
     // End of variables declaration                   
 }
 

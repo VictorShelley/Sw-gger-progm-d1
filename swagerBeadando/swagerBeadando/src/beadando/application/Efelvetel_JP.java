@@ -74,16 +74,25 @@ public class Efelvetel_JP extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, App app) {                                         
         // TODO add your handling code here:
         try{
+
             String nev = nev_txt.getText();
             String telefonszam = telefonszam_txt.getText();
             String cim = cim_txt.getText();
-            LocalDate now =  LocalDate.now();
-            EdzoBusiness edzo = new EdzoBusiness(nev, telefonszam, cim, now);
-            app.edzoList.add(edzo);
-            JOptionPane.showMessageDialog(null, "Sikeres adat felvitel");
+            if (nev.length() > 0 && telefonszam.length() > 0 && cim.length() > 0){
+                LocalDate now =  LocalDate.now();
+                EdzoBusiness edzo = new EdzoBusiness(nev, telefonszam, cim, now);
+                app.edzoList.add(edzo);
+                JOptionPane.showMessageDialog(null, "Sikeres adat felvitel");
+                nev_txt.setText("");
+                telefonszam_txt.setText("");
+                cim_txt.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Üresen hagyott mező", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+            
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Hiba az adatfelvitel közben", "Message", JOptionPane.ERROR_MESSAGE);
             out.println(ex.toString());
         }
     }                                        

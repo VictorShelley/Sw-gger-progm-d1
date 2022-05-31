@@ -79,16 +79,25 @@ public class Vmodositas_JP extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, App app) {                                         
         // TODO add your handling code here:
         try{
+            Boolean c = false;
             Integer id = Integer.parseInt(id_txt.getText());
-            for(int i=0; i<app.vendegList.size(); i++){
+            if(id>0){
+                for(int i=0; i<app.vendegList.size(); i++){
                 VendegBusiness vendeg = app.vendegList.get(i);
-                if(id==vendeg.getId()){
-                    vendeg.setNev(nev_txt.getText());
-                    vendeg.setCim(telefonszam_txt.getText());
-                    vendeg.setTelefonszam(cim_txt.getText());
+                    if(id==vendeg.getId()){
+                        vendeg.setNev(nev_txt.getText());
+                        vendeg.setCim(telefonszam_txt.getText());
+                        vendeg.setTelefonszam(cim_txt.getText());
+                        JOptionPane.showMessageDialog(null, "Sikeres adat módositás!");
+                        c = true;
+                    }
                 }
-            }
-            JOptionPane.showMessageDialog(null, "Sikeres adat módositás!");
+                if (c!=true){
+                    JOptionPane.showMessageDialog(null, "A keresett ID nem található!");
+                }
+            }else JOptionPane.showMessageDialog(null, "Hibás id!");
+            
+            
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hiba a módosítás közben", "Message", JOptionPane.ERROR_MESSAGE);
