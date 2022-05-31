@@ -169,55 +169,51 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, App app) {                                         
         // TODO add your handling code here:
-        Integer id = Integer.parseInt(jTextField1.getText());
-        VendegBusiness vendeg = app.vendegList.get(id-1);
-        Integer osszeg = vendeg.getAlapNapijegy();
-        Boolean v = false;
-        if((jCheckBox1.isSelected() != jCheckBox2.isSelected()) && (jCheckBox3.isSelected() != jCheckBox4.isSelected())){
-            
-            if(jCheckBox1.isSelected() && jCheckBox3.isSelected()){
-                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
-                vendeg.BerletVasarlas(BerletTipusEnum.NAPIJEGY);
-                vendeg.setErvenyesseg(true);
-                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
-                JOptionPane.showMessageDialog(null, "A diák napijegy ára levonásra került!" + osszeg + "FT");
-                vendeg.egyenlegNoveles(-osszeg);
-                v = true;
-            }
-            if(jCheckBox1.isSelected() && jCheckBox4.isSelected()){
-                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
-                vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
-                vendeg.setErvenyesseg(true);
-                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
-                JOptionPane.showMessageDialog(null, "A diák havibérlet ára levonásra került!" + osszeg + "FT");
-                vendeg.egyenlegNoveles(-osszeg);
-                v = true;
-            }
-            if(jCheckBox2.isSelected() && jCheckBox3.isSelected()){
-                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
-                vendeg.BerletVasarlas(BerletTipusEnum.NAPIJEGY);
-                vendeg.setErvenyesseg(true);
-                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
-                JOptionPane.showMessageDialog(null, "A teljesárú napijegy ára levonásra került!" + osszeg + "FT");
-                vendeg.egyenlegNoveles(-osszeg);
-                v = true;
-            }
-            if(jCheckBox2.isSelected() && jCheckBox4.isSelected()){
-                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
-                vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
-                vendeg.setErvenyesseg(true);
-                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
-                JOptionPane.showMessageDialog(null, "A teljesárú havibérlet ára levonásra került!" + osszeg + "FT");
-                vendeg.egyenlegNoveles(-osszeg);
-                v = true;
-            }
-            if(v == true){
-                
-            }
-        }
-        else JOptionPane.showMessageDialog(null, "Hiba a vásárlás közben!", "Message", JOptionPane.ERROR_MESSAGE);
-    }                                        
+        try{
+            Integer id = Integer.parseInt(jTextField1.getText());
+            VendegBusiness vendeg = app.vendegList.get(id-1);
+            Integer osszeg = vendeg.getAlapNapijegy();
 
+            if ( (jCheckBox1.isSelected() || jCheckBox2.isSelected()) && (jCheckBox3.isSelected() || jCheckBox4.isSelected())){
+                osszeg = vendeg.getAlapNapijegy();
+                if(jCheckBox1.isSelected()){//napijegy
+                    if(jCheckBox3.isSelected()){//diák
+                        jegyKiadas(vendeg, BerletTipusEnum.NAPIJEGY, KedvezmenyTipusEnum.DIAK, osszeg, "napijegy", "diák");
+                    }
+                    else if(jCheckBox4.isSelected()){//teljesárú
+                        jegyKiadas(vendeg, BerletTipusEnum.NAPIJEGY, KedvezmenyTipusEnum.TELJES, osszeg, "napijegy", "teljesárú");
+                    }
+                }
+                else if(jCheckBox2.isSelected()){//havi bérlet
+                    if(jCheckBox3.isSelected()){//diák
+                        jegyKiadas(vendeg, BerletTipusEnum.HAVIBERLET, KedvezmenyTipusEnum.DIAK, osszeg*10, "havibérlet", "diák");
+                    }
+                    else if(jCheckBox4.isSelected()){//teljesárú
+                        jegyKiadas(vendeg, BerletTipusEnum.HAVIBERLET, KedvezmenyTipusEnum.TELJES, osszeg*10, "havibérlet", "teljesárú");
+                    }
+                }
+            }//else JOptionPane.showMessageDialog(null, "Hiba a vásárlás közben!", "Message", JOptionPane.ERROR_MESSAGE);
+        }catch(Exception ex){
+            System.out.println("hiba: "+ex.toString());
+            JOptionPane.showMessageDialog(null, "Hiba a vásárlás közben!", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                        
+    private void jegyKiadas(VendegBusiness vendeg, BerletTipusEnum tipus, KedvezmenyTipusEnum kedvezmeny, Integer osszeg, String berletTipus, String arTipus){
+        osszeg = osszeg * kedvezmeny.getkedvezmeny();
+        if(vendeg.hasEnoughMoney(osszeg)){
+            vendeg.setKedvezmenyTipus(kedvezmeny);
+            System.out.println(tipus.toString());
+            System.out.println(kedvezmeny.toString());
+            System.out.println(kedvezmeny.getkedvezmeny());
+            System.out.println(String.format("A %s %s ára levonásra került! %d Ft", arTipus, berletTipus, osszeg));
+            //JOptionPane.showMessageDialog(null, String.format("A %s %s ára levonásra került! %d Ft", arTipus, berletTipus, osszeg));
+            vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
+            vendeg.egyenlegNoveles(-osszeg);
+        }else{
+            System.out.println(String.format("%s nem rendelkezik elég egyenleggel a \n szia", vendeg.getNev()));
+            JOptionPane.showMessageDialog(null, String.format("%s nem rendelkezik elég egyenleggel a vásárláshoz!\n%s egyenlege: %d Ft\nA %s %s ára: %d Ft", vendeg.getNev(),vendeg.getNev(),vendeg.getEgyenleg(),arTipus,berletTipus, osszeg));
+        }
+    }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
