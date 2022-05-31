@@ -141,7 +141,11 @@ class Ablak extends JFrame implements ActionListener {
         else if(e.getSource()== vtorles){
             try{
                 Integer  id = Integer.parseInt(JOptionPane.showInputDialog("A vendég ID-ja: "));
-                app.vendegList.remove(id-1);
+                for(int i=0; i<app.vendegList.size(); i++){
+                    if(app.vendegList.get(i).getId()==id){
+                        app.vendegList.remove(i);
+                    }
+                }
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Hibás ID!", "Message", JOptionPane.ERROR_MESSAGE);
@@ -179,7 +183,11 @@ class Ablak extends JFrame implements ActionListener {
         else if(e.getSource()== etorles){
             try{
                 Integer  id = Integer.parseInt(JOptionPane.showInputDialog("Az edző ID-ja: "));
-                app.edzoList.remove(id-1);
+                for(int i=0; i<app.edzoList.size(); i++){
+                    if(app.edzoList.get(i).getId()==id){
+                        app.edzoList.remove(i);
+                    }
+                }
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Hibás ID!", "Message", JOptionPane.ERROR_MESSAGE);

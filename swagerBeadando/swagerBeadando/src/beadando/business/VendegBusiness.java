@@ -3,6 +3,7 @@ package beadando.business;
 import beadando.business.os.TagBusiness;
 import beadando.fio.Fio;
 import java.time.LocalDate;
+import static java.time.LocalDate.now;
 
 public class VendegBusiness extends TagBusiness{
     
@@ -49,7 +50,7 @@ public class VendegBusiness extends TagBusiness{
     public Integer getEgyenleg() {
         return egyenleg;
     }
-
+    
     public void egyenlegNoveles(Integer osszeg) {
         this.egyenleg += osszeg;
     }
@@ -64,6 +65,19 @@ public class VendegBusiness extends TagBusiness{
 
     public void setKedvezmenyTipus(KedvezmenyTipusEnum kedvezmenyTipus) {
         this.kedvezmenyTipus = kedvezmenyTipus;
+    }
+    
+    @Override
+    public Boolean getErvenyesseg() {
+        LocalDate now = LocalDate.now();
+        if(this.getErvenyessegDatum().isBefore(now)){
+            this.setErvenyesseg(false);
+            return false;
+        }
+        else{
+            this.setErvenyesseg(true);
+            return true;
+        }
     }
 
     public void mentes(){
