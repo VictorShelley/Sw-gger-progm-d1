@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import beadando.application.Vkeres_JP;
 import beadando.business.EdzoBusiness;
+import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
 import java.util.ArrayList;
 
@@ -133,7 +134,8 @@ class Ablak extends JFrame implements ActionListener {
         }
         //JP-t hiv
         else if(e.getSource()== vmodositas){
-            
+            jp = new Vmodositas_JP(app);
+            fr.add(jp);
         }
         //lokalisan
         else if(e.getSource()== vtorles){
@@ -160,7 +162,8 @@ class Ablak extends JFrame implements ActionListener {
         }
         //lokalisan
         else if(e.getSource()== vberletVasarlas){
-            
+            jp = new VberletVasarlas_JP(app);
+            fr.add(jp);
         }
         //JP-t hiv
         else if(e.getSource()== efelvetel){
@@ -172,11 +175,27 @@ class Ablak extends JFrame implements ActionListener {
         }
         //lokalisan
         else if(e.getSource()== etorles){
-            
+            try{
+                Integer  id = Integer.parseInt(JOptionPane.showInputDialog("Az edző ID-ja: "));
+                app.edzoList.remove(id-1);
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Hibás ID!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
         }
         //lokalisan (Edzo class tagjának adatait átmenti egy új vendegként, majd törli az edzo változatot)
         else if(e.getSource()== elefokozas){
-            
+            try{
+                Integer id = Integer.parseInt(JOptionPane.showInputDialog("Az edző ID-ja: "));
+                EdzoBusiness edzo = app.edzoList.get(id);
+                app.vendegList.add(new VendegBusiness(edzo.getNev(), edzo.getTelefonszam(), edzo.getCim(), edzo.getCsatlakozasDatuma()));
+                app.edzoList.remove(id);
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Hiba a lefokozás közben!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
         }
         //JP-t hiv (Az összes tag megjelentése egy legördülő lista formájában)
         else if(e.getSource()== tagokLista){

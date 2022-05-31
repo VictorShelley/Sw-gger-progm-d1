@@ -59,6 +59,19 @@ public abstract class TagBusiness {
         return csatlakozasDatuma;
     }
 
+    public void setNev(String nev) {
+        this.nev = nev;
+    }
+
+    public void setTelefonszam(String telefonszam) {
+        this.telefonszam = telefonszam;
+    }
+
+    public void setCim(String cim) {
+        this.cim = cim;
+    }
+    
+
     public void setErvenyesseg(Boolean ervenyesseg) {
         this.ervenyesseg = ervenyesseg;
     }
