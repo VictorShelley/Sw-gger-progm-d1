@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package beadando.application;
 
 import beadando.business.EdzoBusiness;
 import beadando.business.VendegBusiness;
 import static java.lang.System.out;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +16,8 @@ public class Ekeres_JP extends javax.swing.JPanel {
     /**
      * Creates new form Ekeres_JP
      */
-    public Ekeres_JP() {
-        initComponents();
+    public Ekeres_JP(App app) {
+        initComponents(app);
     }
 
     /**
@@ -30,7 +27,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(App app) {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -54,7 +51,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
         jTextField1.setText("ID:");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt, app);
             }
         });
 
@@ -161,10 +158,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
                         .addGap(37, 37, 37))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt, App app) {                                            
             // TODO add your handling code here:
             try{
@@ -180,10 +174,12 @@ public class Ekeres_JP extends javax.swing.JPanel {
                         find = true;
                         VendegBusiness vendeg;
                         ArrayList<VendegBusiness> kliensek = edzo.getKliensek();
+                        DefaultListModel model = new DefaultListModel();
                         for(int j=0;j<kliensek.size();j++){
                             VendegBusiness kliens = kliensek.get(j);
-                            //listához kellene hozzáadni a vvendég nevét/id jét
+                            model.addElement(String.format("(%d)%s", kliens.getId(),kliens.getNev()));
                         }
+                        jList1.setModel(model);
                     }
                 }
                 if(find==false){
@@ -194,8 +190,11 @@ public class Ekeres_JP extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);
                 out.println(ex.toString());
             }
-        }
-//2
+        
+
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

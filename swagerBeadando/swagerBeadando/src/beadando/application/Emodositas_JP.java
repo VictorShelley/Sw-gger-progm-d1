@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package beadando.application;
 
 import static java.lang.System.out;
 import javax.swing.JOptionPane;
 import beadando.business.EdzoBusiness;
+import java.awt.Dimension;
 
 /**
  *
@@ -17,8 +14,8 @@ public class Emodositas_JP extends javax.swing.JPanel {
     /**
      * Creates new form Emodositas_JP
      */
-    public Emodositas_JP() {
-        initComponents();
+    public Emodositas_JP(App app) {
+        initComponents(app);
     }
 
     /**
@@ -28,7 +25,7 @@ public class Emodositas_JP extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(App app) {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -45,23 +42,27 @@ public class Emodositas_JP extends javax.swing.JPanel {
         jButton1.setText("Mentés");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton1ActionPerformed(evt, app);
             }
         });
 
         jLabel2.setText("Név:");
 
-        jTextField1.setText("id");
+        jTextField1.setText("");
+        jTextField1.setPreferredSize(new Dimension(60, 20));
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("");
+        jTextField2.setPreferredSize(new Dimension(60, 20));
 
         jLabel3.setText("Telefonszám:");
 
         jLabel4.setText("Cím:");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText("");
+        jTextField3.setPreferredSize(new Dimension(60, 20));
 
-        jTextField4.setText("jTextField4");
+        jTextField4.setText("");
+        jTextField4.setPreferredSize(new Dimension(60, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -114,11 +115,6 @@ public class Emodositas_JP extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //a
-    }//GEN-LAST:event_jButton1ActionPerformed
-       
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt, App app){
         try{
             //keresés edzők közt
@@ -137,7 +133,8 @@ public class Emodositas_JP extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Hiba a módosítás közben", "Message", JOptionPane.ERROR_MESSAGE);
             out.println(ex.toString());
         }
-    }
+    
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
