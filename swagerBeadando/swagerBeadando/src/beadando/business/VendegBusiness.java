@@ -65,10 +65,29 @@ public class VendegBusiness extends TagBusiness{
     public void setKedvezmenyTipus(KedvezmenyTipusEnum kedvezmenyTipus) {
         this.kedvezmenyTipus = kedvezmenyTipus;
     }
-
+    
+    public Boolean hasEnoughMoney(Integer price){
+        if (this.egyenleg >= price){
+            return true;
+        }
+        return false;
+    }
+    
     public void mentes(){
         Fio<VendegBusiness> f = new Fio<VendegBusiness>();
         f.mentes(this);
     }
     
+    @Override
+    public Boolean getErvenyesseg() {
+        LocalDate now = LocalDate.now();
+        if(this.getErvenyessegDatum().isBefore(now)){
+            this.setErvenyesseg(false);
+            return false;
+        }
+        else{
+            this.setErvenyesseg(true);
+            return true;
+        }
+    }
 }
