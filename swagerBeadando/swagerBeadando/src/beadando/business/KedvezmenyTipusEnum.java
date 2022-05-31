@@ -1,15 +1,15 @@
 package beadando.business;
 
 public enum KedvezmenyTipusEnum {
-    TELJES(1), DIAK(0.7); 
+    TELJES(2), DIAK(1); 
     
-    private final double kedvezmenymerteke;
+    private final int kedvezmenymerteke;
     
-    private KedvezmenyTipusEnum(double kedvezmenymerteke){
+    private KedvezmenyTipusEnum(int kedvezmenymerteke){
         this.kedvezmenymerteke = kedvezmenymerteke;
     }
     
-    public double getkedvezmeny(){
+    public int getkedvezmeny(){
         return kedvezmenymerteke;
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class VendegBusiness extends TagBusiness{
     
     private final String megnevezese = "Vendég";
-    private final Integer teljesAruNapijegy = 1500;
+    private final Integer alapNapijegy = 750;
     
     @GetterFunctionName(name="getBerletTipus")
     private BerletTipusEnum berletTipus;// = BerletTipusEnum.LEJART;
@@ -58,8 +58,12 @@ public class VendegBusiness extends TagBusiness{
         return megnevezese;
     }
 
-    public Integer getTeljesAruNapijegy() {
-        return teljesAruNapijegy;
+    public Integer getAlapNapijegy() {
+        return alapNapijegy;
+    }
+
+    public void setKedvezmenyTipus(KedvezmenyTipusEnum kedvezmenyTipus) {
+        this.kedvezmenyTipus = kedvezmenyTipus;
     }
 
     public void mentes(){
