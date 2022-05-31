@@ -4,6 +4,7 @@
  */
 package beadando.application;
 
+import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
 import javax.swing.JOptionPane;
 
@@ -168,25 +169,29 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
         // TODO add your handling code here:
         Integer id = Integer.parseInt(jTextField1.getText());
         VendegBusiness vendeg = app.vendegList.get(id-1);
-        Integer osszeg = vendeg.getTeljesAruNapijegy();
+        Integer osszeg = vendeg.getAlapNapijegy();
         if((jCheckBox1.isSelected() != jCheckBox2.isSelected()) && (jCheckBox3.isSelected() != jCheckBox4.isSelected())){
             if(jCheckBox1.isSelected() && jCheckBox3.isSelected()){
-                osszeg = osszeg * (int)vendeg.getKedvezmenyTipus().getkedvezmeny();
+                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
+                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
                 JOptionPane.showMessageDialog(null, "A diák napijegy ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
             }
             if(jCheckBox1.isSelected() && jCheckBox4.isSelected()){
-                osszeg = osszeg * (int)vendeg.getKedvezmenyTipus().getkedvezmeny() * 10;
+                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
+                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
                 JOptionPane.showMessageDialog(null, "A diák havibérlet ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
             }
             if(jCheckBox2.isSelected() && jCheckBox3.isSelected()){
-                osszeg = osszeg * (int)vendeg.getKedvezmenyTipus().getkedvezmeny();
+                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
+                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
                 JOptionPane.showMessageDialog(null, "A teljesárú napijegy ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
             }
             if(jCheckBox2.isSelected() && jCheckBox4.isSelected()){
-                osszeg = osszeg * (int)vendeg.getKedvezmenyTipus().getkedvezmeny() * 10;
+                vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
+                osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
                 JOptionPane.showMessageDialog(null, "A teljesárú havibérlet ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
             }
