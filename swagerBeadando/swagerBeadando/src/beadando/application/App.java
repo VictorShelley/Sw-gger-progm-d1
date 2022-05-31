@@ -228,7 +228,8 @@ class Ablak extends JFrame implements ActionListener {
             }
         }
         else if(e.getSource()== vszemelyiedzoValasztas){
-            
+            jp = new VszemelyiedzoValasztas_JP(app);
+            fr.add(jp);
         }
         SwingUtilities.updateComponentTreeUI(jp);
     }
