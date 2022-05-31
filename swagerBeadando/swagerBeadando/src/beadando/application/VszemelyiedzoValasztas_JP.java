@@ -1,5 +1,11 @@
 package beadando.application;
 
+import beadando.business.EdzoBusiness;
+import beadando.business.VendegBusiness;
+import static java.lang.System.out;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,14 +37,29 @@ public class VszemelyiedzoValasztas_JP extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
 
         jButton2.setText("Hozzárendelés");
+         jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt, app);
+            }
+        });
 
         jLabel6.setText("Vendég");
 
         jLabel7.setText("Edző");
+        
+        String[] vendegNevLista = new String[app.vendegList.size()];
+        for(int i=0; i<app.vendegList.size(); i++){
+            vendegNevLista[i]=(app.vendegList.get(i).getNev());
+        }
+        
+        String[] edzoNevLista = new String[app.edzoList.size()];
+        for(int i=0; i<app.edzoList.size(); i++){
+            edzoNevLista[i]=(app.edzoList.get(i).getNev());
+        }
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new DefaultComboBoxModel<String>(vendegNevLista));
+        
+        jComboBox2.setModel(new DefaultComboBoxModel<String>(edzoNevLista));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,7 +95,35 @@ public class VszemelyiedzoValasztas_JP extends javax.swing.JPanel {
                 .addContainerGap(304, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
-
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt, App app) {                                         
+    // TODO add your handling code here:
+        try{
+            VendegBusiness vendeg = null;
+            for(int i=0; i<app.vendegList.size(); i++){
+                if(app.vendegList.get(i).getNev()==jComboBox1.getSelectedItem().toString()){
+                    vendeg = app.vendegList.get(i);
+                }
+            }
+            EdzoBusiness edzo = null;
+            for(int i=0; i<app.edzoList.size(); i++){
+                if(app.edzoList.get(i).getNev()==jComboBox2.getSelectedItem().toString()){
+                    edzo = app.edzoList.get(i);
+                }
+            }
+            try {
+                edzo.addKliens(vendeg);
+                JOptionPane.showMessageDialog(null, "Sikeres Személyiedző választás!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Hiba a személyiedző választás közben! (Nem létező tag)", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Hiba a személyiedző választás közben!", "Message", JOptionPane.ERROR_MESSAGE);
+            out.println(ex.toString());
+        }
+    }   
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton2;
