@@ -195,7 +195,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
                 out.println(ex.toString());
             }
         }
-
+//2
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
