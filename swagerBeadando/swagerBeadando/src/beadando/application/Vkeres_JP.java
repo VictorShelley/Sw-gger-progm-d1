@@ -3,7 +3,10 @@ package beadando.application;
 import beadando.business.VendegBusiness;
 import java.awt.Dimension;
 import static java.lang.System.out;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -51,9 +54,10 @@ public class Vkeres_JP extends javax.swing.JPanel {
         berletErvenyesseg = new javax.swing.JLabel();
         egyenleg = new javax.swing.JLabel();
         //törlés, befizetés
+        berletVasarlas_btn = new javax.swing.JButton();
         befizetes_btn = new javax.swing.JButton();
         torles_btn = new javax.swing.JButton();
-        
+        ujkereses_btn = new javax.swing.JButton();
         
         jLabel1.setText("jLabel1");
 
@@ -79,13 +83,22 @@ public class Vkeres_JP extends javax.swing.JPanel {
         });
         add(kereses_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
         
+        berletVasarlas_btn.setText("Bérlet vásárlás");
+        berletVasarlas_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                berletVasarlas_btnActionPerformed(evt, app);
+            }
+        });
+        add(berletVasarlas_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        berletVasarlas_btn.setVisible(false);
+        
         befizetes_btn.setText("Befizetés");
         befizetes_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 befizetes_btnActionPerformed(evt, app);
             }
         });
-        add(befizetes_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+        add(befizetes_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
         befizetes_btn.setVisible(false);
         
         torles_btn.setText("Törlés");
@@ -94,8 +107,17 @@ public class Vkeres_JP extends javax.swing.JPanel {
                 torles_btnActionPerformed(evt, app);
             }
         });
-        add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, -1, -1));
+        add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, -1));
         torles_btn.setVisible(false);
+        
+        ujkereses_btn.setText("Új keresés");
+        ujkereses_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearForm();
+            }
+        });
+        add(ujkereses_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 405, -1, -1));
+        ujkereses_btn.setVisible(false);
         
         jLabel3.setText("Név:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
@@ -189,8 +211,10 @@ public class Vkeres_JP extends javax.swing.JPanel {
                     kedvezmenyTipus.setText(vendeg.getKedvezmenyTipus().toString());
                     telefonszam.setText(vendeg.getTelefonszam());
 
+                    berletVasarlas_btn.setVisible(true);
                     befizetes_btn.setVisible(true);
                     torles_btn.setVisible(true);
+                    ujkereses_btn.setVisible(true);
                     
                     id_txt.setEditable(false);
                     f = true;
@@ -204,6 +228,16 @@ public class Vkeres_JP extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);
             out.println(ex.toString());
         }
+    }
+    private void berletVasarlas_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {  
+        Integer id = Integer.parseInt(id_txt.getText());
+        JFrame fr = (JFrame)SwingUtilities.getRoot(this);//jelenlegi jfram lekérés
+        fr.remove(this);
+        fr.revalidate();
+        fr.repaint();
+        JPanel jp = new VberletVasarlas_JP(app, id);
+        fr.add(jp);
+        SwingUtilities.updateComponentTreeUI(jp);
     }
     private void befizetes_btnActionPerformed(java.awt.event.ActionEvent evt, App app) { 
         try{
@@ -222,7 +256,8 @@ public class Vkeres_JP extends javax.swing.JPanel {
             Integer id = Integer.parseInt(id_txt.getText());
             int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
             if(result == JOptionPane.YES_OPTION){
-                app.vendegList.remove(id);
+                app.vendegList.remove(id-1);
+                clearForm();
                 }
             }
         catch(Exception ex){
@@ -230,7 +265,24 @@ public class Vkeres_JP extends javax.swing.JPanel {
                 out.println(ex.toString());
         }
     }                                           
-
+    private void clearForm(){
+        id_txt.setEditable(true);
+        id_txt.setText("");
+        nev.setText("");
+        berletTipus.setText("");
+        cim.setText("");
+        csatlakozasDatum.setText("");
+        egyenleg.setText("");
+        berletErvenyesseg.setText("");
+        ervenyessegDatum.setText("");
+        id_str.setText("");
+        kedvezmenyTipus.setText("");
+        telefonszam.setText("");
+        berletVasarlas_btn.setVisible(false);
+        befizetes_btn.setVisible(false);
+        torles_btn.setVisible(false); 
+        ujkereses_btn.setVisible(false); 
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JLabel id_lbl;
@@ -261,6 +313,8 @@ public class Vkeres_JP extends javax.swing.JPanel {
     private javax.swing.JButton kereses_btn;
     private javax.swing.JButton befizetes_btn;
     private javax.swing.JButton torles_btn;
+    private javax.swing.JButton ujkereses_btn; 
+    private javax.swing.JButton berletVasarlas_btn;
     // End of variables declaration                   
 }
 

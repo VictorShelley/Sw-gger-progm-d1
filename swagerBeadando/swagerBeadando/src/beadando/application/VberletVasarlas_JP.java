@@ -22,6 +22,11 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
     public VberletVasarlas_JP(App app) {
         initComponents(app);
     }
+    
+    public VberletVasarlas_JP(App app, Integer id) {
+        initComponents(app);
+        jTextField1.setText(id.toString());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

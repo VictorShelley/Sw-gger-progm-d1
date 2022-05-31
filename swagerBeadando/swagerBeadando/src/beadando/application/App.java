@@ -110,7 +110,6 @@ class Ablak extends JFrame implements ActionListener {
         mb.add(adatbazis);
         adatbazis.add(mentes);
 
-        
         mentes.addActionListener(this);
         
         fr.setVisible(true);
@@ -119,10 +118,12 @@ class Ablak extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(jp!=null){
-            fr.remove(jp);
+            //fr.remove(jp);
+            fr.getContentPane().removeAll();
             fr.revalidate();
             fr.repaint();
         }
+        
         //JP-t hiv
         if(e.getSource()== vfelvetel){
             jp = new Vfelvetel_JP(app);
