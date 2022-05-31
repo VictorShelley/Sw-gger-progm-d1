@@ -4,8 +4,10 @@
  */
 package beadando.application;
 
+import beadando.business.BerletTipusEnum;
 import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
 /**
@@ -83,7 +85,7 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
 
         jLabel5.setText("ID:");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setPreferredSize(new Dimension(60, 20));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -170,30 +172,47 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
         Integer id = Integer.parseInt(jTextField1.getText());
         VendegBusiness vendeg = app.vendegList.get(id-1);
         Integer osszeg = vendeg.getAlapNapijegy();
+        Boolean v = false;
         if((jCheckBox1.isSelected() != jCheckBox2.isSelected()) && (jCheckBox3.isSelected() != jCheckBox4.isSelected())){
+            
             if(jCheckBox1.isSelected() && jCheckBox3.isSelected()){
                 vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
+                vendeg.BerletVasarlas(BerletTipusEnum.NAPIJEGY);
+                vendeg.setErvenyesseg(true);
                 osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
                 JOptionPane.showMessageDialog(null, "A diák napijegy ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
+                v = true;
             }
             if(jCheckBox1.isSelected() && jCheckBox4.isSelected()){
                 vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
+                vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
+                vendeg.setErvenyesseg(true);
                 osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny();
                 JOptionPane.showMessageDialog(null, "A diák havibérlet ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
+                v = true;
             }
             if(jCheckBox2.isSelected() && jCheckBox3.isSelected()){
                 vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.DIAK);
+                vendeg.BerletVasarlas(BerletTipusEnum.NAPIJEGY);
+                vendeg.setErvenyesseg(true);
                 osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
                 JOptionPane.showMessageDialog(null, "A teljesárú napijegy ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
+                v = true;
             }
             if(jCheckBox2.isSelected() && jCheckBox4.isSelected()){
                 vendeg.setKedvezmenyTipus(KedvezmenyTipusEnum.TELJES);
+                vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
+                vendeg.setErvenyesseg(true);
                 osszeg = osszeg * vendeg.getKedvezmenyTipus().getkedvezmeny()*10;
                 JOptionPane.showMessageDialog(null, "A teljesárú havibérlet ára levonásra került!" + osszeg + "FT");
                 vendeg.egyenlegNoveles(-osszeg);
+                v = true;
+            }
+            if(v == true){
+                
             }
         }
         else JOptionPane.showMessageDialog(null, "Hiba a vásárlás közben!", "Message", JOptionPane.ERROR_MESSAGE);

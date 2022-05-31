@@ -30,7 +30,7 @@ public class TagokLista_JP extends javax.swing.JPanel {
         try{
             for(int i=0; i<app.vendegList.size(); i++){
                 VendegBusiness vendeg = app.vendegList.get(i);
-                strings.add(vendeg.getMegnevezese() + "| ID: " + vendeg.getId() + ", Név: " + vendeg.getNev() + ", Érvényesség: " + vendeg.getErvenyesseg());
+                strings.add(vendeg.getMegnevezese() + "| ID: " + vendeg.getId() + ", Név: " + vendeg.getNev() + ", Érvényesség: " + vendeg.getErvenyesseg() + " "+vendeg.getErvenyessegDatum());
             }
             for(int i=0; i<app.edzoList.size(); i++){
                 EdzoBusiness edzo = app.edzoList.get(i);
