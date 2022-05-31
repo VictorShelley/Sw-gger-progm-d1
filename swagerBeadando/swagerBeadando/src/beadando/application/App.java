@@ -167,11 +167,13 @@ class Ablak extends JFrame implements ActionListener {
         }
         //JP-t hiv
         else if(e.getSource()== efelvetel){
-            
+            jp = new Efelvetel_JP(app);
+            fr.add(jp);
         }
         //JP-t hiv
         else if(e.getSource()== emodositas){
-            
+            jp = new Emodositas_JP(app);
+            fr.add(jp);
         }
         //lokalisan
         else if(e.getSource()== etorles){
@@ -188,9 +190,15 @@ class Ablak extends JFrame implements ActionListener {
         else if(e.getSource()== elefokozas){
             try{
                 Integer id = Integer.parseInt(JOptionPane.showInputDialog("Az edző ID-ja: "));
-                EdzoBusiness edzo = app.edzoList.get(id);
-                app.vendegList.add(new VendegBusiness(edzo.getNev(), edzo.getTelefonszam(), edzo.getCim(), edzo.getCsatlakozasDatuma()));
-                app.edzoList.remove(id);
+                EdzoBusiness edzo = null;
+                
+                for(int i=0; i<app.edzoList.size(); i++){
+                    if(app.edzoList.get(i).getId()==id){
+                        edzo = app.edzoList.get(i);
+                        app.vendegList.add(new VendegBusiness(edzo.getNev(), edzo.getTelefonszam(), edzo.getCim(), edzo.getCsatlakozasDatuma()));
+                        app.edzoList.remove(i);
+                    }
+                }
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Hiba a lefokozás közben!", "Message", JOptionPane.ERROR_MESSAGE);
@@ -208,7 +216,7 @@ class Ablak extends JFrame implements ActionListener {
             fr.add(jp);
         }
         else if(e.getSource()==ekeres){
-            jp = new Ekeres_JP();
+            jp = new Ekeres_JP(app);
             fr.add(jp);
         }
         //lokalisan mentes XML-be

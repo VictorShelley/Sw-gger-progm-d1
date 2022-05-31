@@ -2,10 +2,11 @@ package beadando.business.os;
 
 import java.time.LocalDate;
 import beadando.business.GetterFunctionName;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class TagBusiness {
     
-    private Integer nextId=1;
+    private static final AtomicInteger nextId = new AtomicInteger(0);
     
     @GetterFunctionName(name="getId")
     private Integer Id;
@@ -26,8 +27,7 @@ public abstract class TagBusiness {
     private LocalDate csatlakozasDatuma;
     
     public TagBusiness(String nev, String telefonszam, String cim, LocalDate csatlakozasDatuma){
-        this.Id = nextId;
-        nextId++;
+        this.Id = nextId.incrementAndGet();
         this.nev = nev;
         this.telefonszam = telefonszam;
         this.cim = cim;
@@ -70,7 +70,6 @@ public abstract class TagBusiness {
     public void setCim(String cim) {
         this.cim = cim;
     }
-    
 
     public void setErvenyesseg(Boolean ervenyesseg) {
         this.ervenyesseg = ervenyesseg;
