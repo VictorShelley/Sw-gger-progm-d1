@@ -221,4 +221,19 @@ class Ablak extends JFrame implements ActionListener {
         }
         SwingUtilities.updateComponentTreeUI(jp);
     }
+    public class ImagePanel extends JPanel{
+        private BufferedImage image;
+        public ImagePanel() {
+           try {                
+              image = ImageIO.read(new File("D:\\Onedrive-Egyetemi\\OneDrive - Kormányzati Informatikai Fejlesztési Ügynökség\\Documents\\NetBeansProjects\\Sw-gger-progm-d1\\swagerBeadando\\swagerBeadando\\src\\gymphoto.png"));
+           } catch (IOException ex) {
+                out.println(ex.toString());
+           }
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
+        }    
+    }
 }
