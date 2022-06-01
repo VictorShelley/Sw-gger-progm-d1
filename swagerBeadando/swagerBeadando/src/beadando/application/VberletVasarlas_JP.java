@@ -203,7 +203,7 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
         if(vendeg.hasEnoughMoney(osszeg)){
             vendeg.setKedvezmenyTipus(kedvezmeny);
             JOptionPane.showMessageDialog(null, String.format("A %s %s ára levonásra került! %d Ft", arTipus, berletTipus, osszeg));
-            vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
+            vendeg.BerletVasarlas(tipus);
             vendeg.egyenlegNoveles(-osszeg);
             clearForm();
         }else{
