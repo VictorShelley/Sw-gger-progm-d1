@@ -205,12 +205,20 @@ public class VberletVasarlas_JP extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, String.format("A %s %s ára levonásra került! %d Ft", arTipus, berletTipus, osszeg));
             vendeg.BerletVasarlas(BerletTipusEnum.HAVIBERLET);
             vendeg.egyenlegNoveles(-osszeg);
+            clearForm();
         }else{
             System.out.println(String.format("%s nem rendelkezik elég egyenleggel a \n szia", vendeg.getNev()));
             JOptionPane.showMessageDialog(null, String.format("%s nem rendelkezik elég egyenleggel a vásárláshoz!\n%s egyenlege: %d Ft\nA %s %s ára: %d Ft", vendeg.getNev(),vendeg.getNev(),vendeg.getEgyenleg(),arTipus,berletTipus, osszeg));
         }
     }                                        
 
+    private void clearForm(){
+        jTextField1.setText("");
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
