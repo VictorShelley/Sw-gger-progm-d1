@@ -1,7 +1,5 @@
 package beadando.business;
-//tesztelés
-//miért nem jo
-//itt most beleírtam 11:55-kor
+
 import java.time.LocalDate;
 
 public enum BerletTipusEnum {

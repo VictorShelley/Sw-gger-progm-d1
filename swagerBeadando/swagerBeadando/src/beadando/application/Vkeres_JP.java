@@ -8,10 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author zelllow777
- */
+
 public class Vkeres_JP extends javax.swing.JPanel {
 
     public Vkeres_JP(App app) {
@@ -55,9 +52,11 @@ public class Vkeres_JP extends javax.swing.JPanel {
         egyenleg = new javax.swing.JLabel();
         //törlés, befizetés
         berletVasarlas_btn = new javax.swing.JButton();
+        modositas_btn = new javax.swing.JButton();
         befizetes_btn = new javax.swing.JButton();
         torles_btn = new javax.swing.JButton();
         ujkereses_btn = new javax.swing.JButton();
+        
         
         jLabel1.setText("jLabel1");
 
@@ -101,13 +100,22 @@ public class Vkeres_JP extends javax.swing.JPanel {
         add(befizetes_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
         befizetes_btn.setVisible(false);
         
+        modositas_btn.setText("Módosítás");
+        modositas_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modositas_btnActionPerformed(evt, app);
+            }
+        });
+        add(modositas_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, -1));
+        modositas_btn.setVisible(false);
+        
         torles_btn.setText("Törlés");
         torles_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 torles_btnActionPerformed(evt, app);
             }
         });
-        add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, -1));
+        add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, -1, -1));
         torles_btn.setVisible(false);
         
         ujkereses_btn.setText("Új keresés");
@@ -196,33 +204,33 @@ public class Vkeres_JP extends javax.swing.JPanel {
         // TODO add your handling code here:
         try{
             Integer id = Integer.parseInt(id_txt.getText());
-            boolean f = false; 
-            for(int i=0; i<app.vendegList.size(); i++){
-                VendegBusiness vendeg = app.vendegList.get(i);
-                if(id == vendeg.getId()){
-                    nev.setText(vendeg.getNev());
-                    berletTipus.setText(vendeg.getBerletTipus().toString());
-                    cim.setText(vendeg.getCim());
-                    csatlakozasDatum.setText(vendeg.getCsatlakozasDatuma().toString());
-                    egyenleg.setText(vendeg.getEgyenleg().toString());
-                    berletErvenyesseg.setText(vendeg.getErvenyesseg().toString());
-                    ervenyessegDatum.setText(vendeg.getErvenyessegDatum().toString());
-                    id_str.setText(vendeg.getId().toString());
-                    kedvezmenyTipus.setText(vendeg.getKedvezmenyTipus().toString());
-                    telefonszam.setText(vendeg.getTelefonszam());
+            try{
+                VendegBusiness vendeg = app.vendegList.get(id-1);
 
-                    berletVasarlas_btn.setVisible(true);
-                    befizetes_btn.setVisible(true);
-                    torles_btn.setVisible(true);
-                    ujkereses_btn.setVisible(true);
+                nev.setText(vendeg.getNev());
+                berletTipus.setText(vendeg.getBerletTipus().toString());
+                cim.setText(vendeg.getCim());
+                csatlakozasDatum.setText(vendeg.getCsatlakozasDatuma().toString());
+                egyenleg.setText(vendeg.getEgyenleg().toString());
+                berletErvenyesseg.setText(vendeg.getErvenyesseg().toString());
+                ervenyessegDatum.setText(vendeg.getErvenyessegDatum().toString());
+                id_str.setText(vendeg.getId().toString());
+                kedvezmenyTipus.setText(vendeg.getKedvezmenyTipus().toString());
+                telefonszam.setText(vendeg.getTelefonszam());
+
+                berletVasarlas_btn.setVisible(true);
+                befizetes_btn.setVisible(true);
+                modositas_btn.setVisible(true);
+                torles_btn.setVisible(true);
+                ujkereses_btn.setVisible(true);
                     
-                    id_txt.setEditable(false);
-                    f = true;
-                }
+                id_txt.setEditable(false);
+
             }
-            if(f==false){
-                JOptionPane.showMessageDialog(null, "Ilyen ID nem létezik", "Message", JOptionPane.ERROR_MESSAGE);
-            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Nem található vendég ezzel az ID-val", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+           } 
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hiba a keresés közben", "Message", JOptionPane.ERROR_MESSAGE);
@@ -251,6 +259,22 @@ public class Vkeres_JP extends javax.swing.JPanel {
             out.println(ex.toString());
        }
     }
+    private void modositas_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {  
+        try{
+            Integer id = Integer.parseInt(id_txt.getText());
+            JFrame fr = (JFrame)SwingUtilities.getRoot(this);
+            fr.remove(this);
+            fr.revalidate();
+            fr.repaint();
+            JPanel jp = new Vmodositas_JP(app, id);
+            fr.add(jp);
+            SwingUtilities.updateComponentTreeUI(jp);
+        }
+        catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "probléma a törlés közben.!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+        }
+    }    
     private void torles_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {  
         try{
             Integer id = Integer.parseInt(id_txt.getText());
@@ -280,6 +304,7 @@ public class Vkeres_JP extends javax.swing.JPanel {
         telefonszam.setText("");
         berletVasarlas_btn.setVisible(false);
         befizetes_btn.setVisible(false);
+        modositas_btn.setVisible(false);
         torles_btn.setVisible(false); 
         ujkereses_btn.setVisible(false); 
     }
@@ -315,6 +340,7 @@ public class Vkeres_JP extends javax.swing.JPanel {
     private javax.swing.JButton torles_btn;
     private javax.swing.JButton ujkereses_btn; 
     private javax.swing.JButton berletVasarlas_btn;
+    private javax.swing.JButton modositas_btn;
     // End of variables declaration                   
 }
 

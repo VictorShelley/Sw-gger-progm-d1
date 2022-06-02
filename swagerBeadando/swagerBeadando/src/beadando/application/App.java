@@ -18,6 +18,7 @@ import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
 import beadando.model.EdzoModel;
 import beadando.model.VendegModel;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import java.awt.Graphics;
@@ -232,7 +233,7 @@ class Ablak extends JFrame implements ActionListener {
         private BufferedImage image;
         public ImagePanel() {
            try {                
-              image = ImageIO.read(new File("D:\\Onedrive-Egyetemi\\OneDrive - Kormányzati Informatikai Fejlesztési Ügynökség\\Documents\\NetBeansProjects\\Sw-gger-progm-d1\\swagerBeadando\\swagerBeadando\\src\\gymphoto.png"));
+              image = ImageIO.read(new File("gymphoto.png"));
            } catch (IOException ex) {
                 out.println(ex.toString());
            }
@@ -243,4 +244,6 @@ class Ablak extends JFrame implements ActionListener {
             g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
         }    
     }
+    
+    
 }
