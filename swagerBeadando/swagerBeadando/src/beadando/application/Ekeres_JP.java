@@ -210,7 +210,11 @@ public class Ekeres_JP extends javax.swing.JPanel {
             Integer id = Integer.parseInt(id_txt.getText());
             int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
             if(result == JOptionPane.YES_OPTION){
-                app.edzoList.remove(app.getEdzoindexById(id));
+                for(int i=0; i<app.edzoList.size(); i++){
+                    if(app.edzoList.get(i).getId()==id){
+                        app.edzoList.remove(i);
+                    }
+                }
                 clearForm();
                 }
             }

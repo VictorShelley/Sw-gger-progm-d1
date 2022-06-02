@@ -120,8 +120,8 @@ public class Emodositas_JP extends javax.swing.JPanel {
                 EdzoBusiness edzo = app.edzoList.get(i);
                     if(id==edzo.getId()){
                         edzo.setNev(nev_txt.getText());
-                        edzo.setCim(telefonszam_txt.getText());
-                        edzo.setTelefonszam(cim_txt.getText());
+                        edzo.setCim(cim_txt.getText());
+                        edzo.setTelefonszam(telefonszam_txt.getText());
                         JOptionPane.showMessageDialog(null, "Sikeres adat módositás!");
                         c = true;
                         clearForm();

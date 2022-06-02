@@ -280,7 +280,11 @@ public class Vkeres_JP extends javax.swing.JPanel {
             Integer id = Integer.parseInt(id_txt.getText());
             int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
             if(result == JOptionPane.YES_OPTION){
-                app.vendegList.remove(app.getVendegindexById(id));
+                for(int i=0; i<app.vendegList.size(); i++){
+                    if(app.vendegList.get(i).getId()==id){
+                        app.vendegList.remove(i);
+                    }
+                }
                 clearForm();
                 }
             }

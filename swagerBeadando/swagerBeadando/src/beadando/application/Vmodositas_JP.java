@@ -114,8 +114,8 @@ public class Vmodositas_JP extends javax.swing.JPanel {
                 VendegBusiness vendeg = app.vendegList.get(i);
                     if(id==vendeg.getId()){
                         vendeg.setNev(nev_txt.getText());
-                        vendeg.setCim(telefonszam_txt.getText());
-                        vendeg.setTelefonszam(cim_txt.getText());
+                        vendeg.setCim(cim_txt.getText());
+                        vendeg.setTelefonszam(telefonszam_txt.getText());
                         JOptionPane.showMessageDialog(null, "Sikeres adat módositás!");
                         c = true;
                         clearForm();
