@@ -155,7 +155,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
             try{
                 Integer id = Integer.parseInt(id_txt.getText());
                 try{
-                    EdzoBusiness edzo = app.edzoList.get(id-1);
+                    EdzoBusiness edzo = app.edzoList.get(app.getEdzoindexById(id));
                     
                     id_str.setText(id_txt.getText());
                     nev.setText(edzo.getNev());
@@ -210,7 +210,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
             Integer id = Integer.parseInt(id_txt.getText());
             int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
             if(result == JOptionPane.YES_OPTION){
-                app.edzoList.remove(id-1);
+                app.edzoList.remove(app.getEdzoindexById(id));
                 clearForm();
                 }
             }

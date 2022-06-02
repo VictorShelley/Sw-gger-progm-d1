@@ -142,7 +142,7 @@ public class Emodositas_JP extends javax.swing.JPanel {
     private void kereses_btnActionPerformed(java.awt.event.ActionEvent evt, App app){
         try{
             Integer id = Integer.parseInt(id_txt.getText());
-            EdzoBusiness edzo = app.edzoList.get(id-1);
+            EdzoBusiness edzo = app.edzoList.get(app.getEdzoindexById(id));
             
             nev_txt.setText(edzo.getNev());
             telefonszam_txt.setText(edzo.getTelefonszam());

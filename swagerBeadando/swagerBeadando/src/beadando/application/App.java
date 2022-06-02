@@ -38,6 +38,24 @@ public class App{
 
         Ablak a = new Ablak();
     }
+    
+    public Integer getVendegindexById(Integer id){
+        for(int i=0; i<vendegList.size(); i++){
+            if(vendegList.get(i).getId()==id){
+                return i;
+            }
+        }
+        return null;
+    }
+    
+    public Integer getEdzoindexById(Integer id){
+        for(int i=0; i<edzoList.size(); i++){
+            if(edzoList.get(i).getId()==id){
+                return i;
+            }
+        }
+        return null;
+    }
 }
 
 class Ablak extends JFrame implements ActionListener {

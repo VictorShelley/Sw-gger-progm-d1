@@ -136,7 +136,7 @@ public class Vmodositas_JP extends javax.swing.JPanel {
     private void kereses_btnActionPerformed(java.awt.event.ActionEvent evt, App app){
         try{
             Integer id = Integer.parseInt(id_txt.getText());
-            VendegBusiness vendeg = app.vendegList.get(id-1);
+            VendegBusiness vendeg = app.vendegList.get(app.getVendegindexById(id));
             System.out.println("megvan");
             nev_txt.setText(vendeg.getNev());
             telefonszam_txt.setText(vendeg.getTelefonszam());

@@ -205,7 +205,7 @@ public class Vkeres_JP extends javax.swing.JPanel {
         try{
             Integer id = Integer.parseInt(id_txt.getText());
             try{
-                VendegBusiness vendeg = app.vendegList.get(id-1);
+                VendegBusiness vendeg = app.vendegList.get(app.getVendegindexById(id));
 
                 nev.setText(vendeg.getNev());
                 berletTipus.setText(vendeg.getBerletTipus().toString());
@@ -251,8 +251,8 @@ public class Vkeres_JP extends javax.swing.JPanel {
         try{
             Integer id = Integer.parseInt(id_txt.getText());
             Integer osszeg = Integer.parseInt(JOptionPane.showInputDialog("A befizetés összege: "));
-            app.vendegList.get(id-1).egyenlegNoveles(osszeg);
-            egyenleg.setText(app.vendegList.get(id-1).getEgyenleg().toString());
+            app.vendegList.get(app.getVendegindexById(app.getVendegindexById(id))).egyenlegNoveles(osszeg);
+            egyenleg.setText(app.vendegList.get(app.getVendegindexById(id)).getEgyenleg().toString());
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hiba az befizetés közben!", "Message", JOptionPane.ERROR_MESSAGE);
@@ -280,7 +280,7 @@ public class Vkeres_JP extends javax.swing.JPanel {
             Integer id = Integer.parseInt(id_txt.getText());
             int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
             if(result == JOptionPane.YES_OPTION){
-                app.vendegList.remove(id-1);
+                app.vendegList.remove(app.getVendegindexById(id));
                 clearForm();
                 }
             }
