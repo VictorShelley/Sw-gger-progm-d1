@@ -75,6 +75,8 @@ class Ablak extends JFrame implements ActionListener {
     
     //Menu ablak beallitasa
     public Ablak() throws HeadlessException {
+        jp = new ImagePanel();
+        fr.add(jp);
         fr.setSize(600,600);
         fr.setTitle("GYM nyilvantarto");
         fr.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -233,7 +235,7 @@ class Ablak extends JFrame implements ActionListener {
         private BufferedImage image;
         public ImagePanel() {
            try {                
-              image = ImageIO.read(new File("gymphoto.png"));
+              image = ImageIO.read(new File("\\gymphoto.png"));
            } catch (IOException ex) {
                 out.println(ex.toString());
            }
