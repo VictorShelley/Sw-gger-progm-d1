@@ -16,17 +16,10 @@ import beadando.application.Vkeres_JP;
 import beadando.business.EdzoBusiness;
 import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
-import beadando.model.EdzoModel;
-import beadando.model.VendegModel;
-import java.awt.Color;
-import java.util.ArrayList;
-
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.OverlayLayout;
 
 import javax.swing.SwingUtilities;
 
@@ -59,6 +52,9 @@ public class App{
 }
 
 class Ablak extends JFrame implements ActionListener {
+    
+    ImageIcon image = new ImageIcon("D:\\Onedrive-Egyetemi\\OneDrive - Kormányzati Informatikai Fejlesztési Ügynökség\\Documents\\NetBeansProjects\\Sw-gger-progm-d1\\Sw-gger-progm-d1\\swagerBeadando\\swagerBeadando\\src\\gymphoto.png");
+    JLabel imagelabel = new JLabel(image);
     
     App app = new App();
     
@@ -93,8 +89,7 @@ class Ablak extends JFrame implements ActionListener {
     
     //Menu ablak beallitasa
     public Ablak() throws HeadlessException {
-        jp = new ImagePanel();
-        fr.add(jp);
+        fr.add(imagelabel);
         fr.setSize(600,600);
         fr.setTitle("GYM nyilvantarto");
         fr.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -148,6 +143,7 @@ class Ablak extends JFrame implements ActionListener {
         if(jp!=null){
             //fr.remove(jp);
             fr.getContentPane().removeAll();
+            fr.add(imagelabel);
             fr.revalidate();
             fr.repaint();
         }
@@ -213,15 +209,18 @@ class Ablak extends JFrame implements ActionListener {
         }
         //JP-t hiv (Az összes tag megjelentése egy legördülő lista formájában)
         else if(e.getSource()== tagokLista){
+            fr.remove(imagelabel);
             jp = new TagokLista_JP(app);
             fr.add(jp);
         }
         //JP-t hiv (Egyetlen tag megjelenitése keresés név vagy ID alapján)
         else if(e.getSource()== vkeres){
+            fr.remove(imagelabel);
             jp = new Vkeres_JP(app);
             fr.add(jp);
         }
         else if(e.getSource()==ekeres){
+            fr.remove(imagelabel);
             jp = new Ekeres_JP(app);
             fr.add(jp);
         }
@@ -249,21 +248,4 @@ class Ablak extends JFrame implements ActionListener {
         }
         SwingUtilities.updateComponentTreeUI(jp);
     }
-    public class ImagePanel extends JPanel{
-        private BufferedImage image;
-        public ImagePanel() {
-           try {                
-              image = ImageIO.read(new File("\\gymphoto.png"));
-           } catch (IOException ex) {
-                out.println(ex.toString());
-           }
-        }
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
-        }    
-    }
-    
-    
 }
