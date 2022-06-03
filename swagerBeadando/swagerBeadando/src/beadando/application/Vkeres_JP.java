@@ -251,7 +251,8 @@ public class Vkeres_JP extends javax.swing.JPanel {
         try{
             Integer id = Integer.parseInt(id_txt.getText());
             Integer osszeg = Integer.parseInt(JOptionPane.showInputDialog("A befizetés összege: "));
-            app.vendegList.get(app.getVendegindexById(app.getVendegindexById(id))).egyenlegNoveles(osszeg);
+            app.vendegList.get(app.getVendegindexById(id)).egyenlegNoveles(osszeg);
+           
             egyenleg.setText(app.vendegList.get(app.getVendegindexById(id)).getEgyenleg().toString());
         }
         catch(Exception ex){
