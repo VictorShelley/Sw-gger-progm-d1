@@ -2,6 +2,7 @@ package beadando.business;
 
 import beadando.business.os.TagBusiness;
 import beadando.fio.Fio;
+import static java.lang.System.out;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -38,6 +39,19 @@ public class EdzoBusiness extends TagBusiness{
         return megnevezese;
     }
     
+    public Boolean removeKliens(VendegBusiness torlendo){
+        
+        for(int i=0; i<this.kliensek.size();i++){
+                VendegBusiness kliens = this.kliensek.get(i);
+                System.out.println("itt an");
+                System.out.println(kliens.getId());
+                if (kliens.getId() == torlendo.getId()){
+                    this.kliensek.remove(i);
+                    return true;
+                } 
+        }
+        return false;
+    }
     public void mentes(){
         Fio<EdzoBusiness> f = new Fio<EdzoBusiness>();
         f.mentes(this);

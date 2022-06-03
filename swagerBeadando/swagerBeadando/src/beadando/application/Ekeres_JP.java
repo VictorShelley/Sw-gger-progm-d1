@@ -3,6 +3,9 @@ package beadando.application;
 import beadando.business.EdzoBusiness;
 import beadando.business.VendegBusiness;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import static java.lang.System.out;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -14,7 +17,7 @@ import javax.swing.SwingUtilities;
 
 public class Ekeres_JP extends javax.swing.JPanel {
 
-   
+    
     public Ekeres_JP(App app) {
         initComponents(app);
     }
@@ -45,6 +48,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
         csatlakozasDatum = new javax.swing.JLabel();
         modositas_btn = new javax.swing.JButton();
         torles_btn = new javax.swing.JButton();
+        klienstorles_btn = new javax.swing.JButton();
         ujkereses_btn = new javax.swing.JButton();
         
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,6 +87,15 @@ public class Ekeres_JP extends javax.swing.JPanel {
         });
         add(torles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 405, -1, -1));
         torles_btn.setVisible(false);
+        
+        klienstorles_btn.setText("Kliens törlés");
+        klienstorles_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                klienstorles_btnActionPerformed(evt, app);
+            }
+        });
+        add(klienstorles_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
+        klienstorles_btn.setVisible(false);
         
         ujkereses_btn.setText("Új keresés");
         ujkereses_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -147,10 +160,23 @@ public class Ekeres_JP extends javax.swing.JPanel {
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
-        
-        
+
+        jList1.addMouseListener( new MouseAdapter()
+            {
+               public void mousePressed(MouseEvent e)
+               {
+                   if ( SwingUtilities.isLeftMouseButton(e))
+                   {
+                       Integer index = getRow(e.getPoint());
+                       jList1.setSelectedIndex(index);
+                   }
+               }
+            });
     }// </editor-fold>                        
-    
+    private int getRow(Point point)
+    {
+       return jList1.locationToIndex(point);
+    } 
     private void kereses_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {                                            
             try{
                 Integer id = Integer.parseInt(id_txt.getText());
@@ -165,7 +191,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
 
                     VendegBusiness vendeg;
                     ArrayList<VendegBusiness> kliensek = edzo.getKliensek();
-                    DefaultListModel model = new DefaultListModel();
+                    model = new DefaultListModel();
                     for(int j=0;j<kliensek.size();j++){
                         VendegBusiness kliens = kliensek.get(j);
                         model.addElement(String.format("(%d): %s", kliens.getId(),kliens.getNev()));
@@ -176,6 +202,7 @@ public class Ekeres_JP extends javax.swing.JPanel {
                     ujkereses_btn.setVisible(true);
                     torles_btn.setVisible(true);
                     modositas_btn.setVisible(true);
+                    if(kliensek.size()>0) klienstorles_btn.setVisible(true);
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Nem található edző ezzel az ID-val", "Message", JOptionPane.ERROR_MESSAGE);
@@ -200,6 +227,38 @@ public class Ekeres_JP extends javax.swing.JPanel {
             fr.add(jp);
             SwingUtilities.updateComponentTreeUI(jp);
         }
+        catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "probléma a törlés közben.!", "Message", JOptionPane.ERROR_MESSAGE);
+                out.println(ex.toString());
+        }
+    }
+    private void klienstorles_btnActionPerformed(java.awt.event.ActionEvent evt, App app) {  
+        try{
+            String listValue = jList1.getSelectedValue();
+            
+            if(!listValue.equals(null)){
+                int listRow = jList1.getSelectedIndex();
+                int result = JOptionPane.showConfirmDialog(null, "Biztosan törlöd?","Message",JOptionPane.YES_NO_OPTION); 
+                if(result == JOptionPane.YES_OPTION){
+                    Integer index = Integer.parseInt(String.valueOf(listValue.charAt(1)));
+                    VendegBusiness vendeg = app.vendegList.get(app.getVendegindexById(index));
+                        
+                    Integer edzoId = Integer.parseInt(id_txt.getText());
+                    EdzoBusiness edzo = app.edzoList.get(app.getEdzoindexById(edzoId));
+                    System.out.println(edzo.getNev());
+                    if(edzo.removeKliens(vendeg)==true) {
+                        model.removeElementAt(listRow);
+                        jList1.setModel(model);
+                        JOptionPane.showMessageDialog(null, "Kliens eltávolítva a listából", "Message", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "hiba törlés közben", "Message", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "nincs kiválasztva kliens", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }   
         catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "probléma a törlés közben.!", "Message", JOptionPane.ERROR_MESSAGE);
                 out.println(ex.toString());
@@ -267,9 +326,11 @@ public class Ekeres_JP extends javax.swing.JPanel {
     private javax.swing.JButton kereses_btn;
     private javax.swing.JButton befizetes_btn;
     private javax.swing.JButton torles_btn;
+    private javax.swing.JButton klienstorles_btn;
     private javax.swing.JButton ujkereses_btn; 
     private javax.swing.JButton berletVasarlas_btn;
     private javax.swing.JButton modositas_btn;  
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private DefaultListModel model;
 }
