@@ -18,6 +18,7 @@ import beadando.business.KedvezmenyTipusEnum;
 import beadando.business.VendegBusiness;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.OverlayLayout;
 
@@ -53,7 +54,8 @@ public class App{
 
 class Ablak extends JFrame implements ActionListener {
     
-    ImageIcon image = new ImageIcon("D:\\Onedrive-Egyetemi\\OneDrive - Kormányzati Informatikai Fejlesztési Ügynökség\\Documents\\NetBeansProjects\\Sw-gger-progm-d1\\Sw-gger-progm-d1\\swagerBeadando\\swagerBeadando\\src\\gymphoto.png");
+    ImageIcon image = new ImageIcon("gymphoto.png");
+    
     JLabel imagelabel = new JLabel(image);
     
     App app = new App();
@@ -89,6 +91,7 @@ class Ablak extends JFrame implements ActionListener {
     
     //Menu ablak beallitasa
     public Ablak() throws HeadlessException {
+        
         fr.add(imagelabel);
         fr.setSize(600,600);
         fr.setTitle("GYM nyilvantarto");
@@ -141,8 +144,8 @@ class Ablak extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(jp!=null){
-            //fr.remove(jp);
             fr.getContentPane().removeAll();
+            //fr.add(new JLabel(new javax.swing.ImageIcon(getClass().getResource("/gymphoto.png")))); // NOI18N);
             fr.add(imagelabel);
             fr.revalidate();
             fr.repaint();
@@ -247,5 +250,6 @@ class Ablak extends JFrame implements ActionListener {
             fr.add(jp);
         }
         SwingUtilities.updateComponentTreeUI(jp);
+        
     }
 }
